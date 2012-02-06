@@ -39,6 +39,8 @@ public class GraphLayout {
 	
 	private float _barWidth;
 	
+	private RectF rect;
+	
 	/**
 	 * @param of type null
 	 * @return _width of type int
@@ -255,11 +257,11 @@ public class GraphLayout {
 	 */
 	public void evaluate(GraphOptions options)
 	{
-		
+		defineGraphArea(options.get_graphType());
 		RectF rect = getGraphArea();
 		setMinMax();
 		
-		if(options.get_graphType() == GraphTypes.BAR_CHART)
+		if(options.get_graphType() == GraphTypes.COLUMN_CHART)
 		{
 			determineBarWidth();
 			float factor = (rect.width() - _barWidth) / (_xMax - _xMin);
@@ -272,7 +274,6 @@ public class GraphLayout {
 			_yOffset = (rect.height()) / (_yMax - _yMin);
 		}
 		rect = null;	
-		
 	}
 	
 	
@@ -337,9 +338,23 @@ public class GraphLayout {
 	 */
 	public RectF getGraphArea()
 	{
-		RectF rect = new RectF(_leftGap, 10, _width - 10, _height - _bottomGap);
 		return rect;
 	}
+	
+	/**
+	 * @param graphType of type String 
+	 * @return of type bull
+	 * function which will define the graphArea
+	 * @author rajesh
+	 * @date 3 feb 2012
+	 */
+	private void defineGraphArea(String type)
+	{
+		//rect = (type != GraphTypes.PIE_CHART) ? new RectF(_leftGap, 10, _width - 10, _height - _bottomGap) : new RectF(0, 0, _width, _height - 20);
+		rect = new RectF(_leftGap, 10, _width - 10, _height - _bottomGap);
+	}
+	
+	
 	
 	/**
 	 * @param of type null
